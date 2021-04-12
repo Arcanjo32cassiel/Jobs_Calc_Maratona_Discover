@@ -1,11 +1,11 @@
 const express = require("express");
 const server = express();
-// import { resquest, reponse } from "express";
+const routes = require('./routes');
 
-// resquest, reponse 
-server.get('/', (resquest, reponse) => {
-    return reponse.sendFile(__dirname + "/views/index.html")
-})
+// habilitate files statics
+server.use(express.static("public"))
 
+// routes
+server.use(routes)
 
 server.listen(3000, () => console.log('runing'))
