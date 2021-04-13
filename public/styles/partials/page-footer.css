@@ -1,0 +1,43 @@
+.page-footer {
+    background: var(--color-primary);
+    padding-top: .7rem;
+    padding-bottom: .7rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    flex-wrap: wrap;
+}
+
+.page-footer p {
+    font-family: Inter;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.625rem;
+    color: var(--color-header-inner-title);
+    text-align: center;
+}
+
+.page-footer p span a {
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.page-footer nav {
+    width: 6rem;
+}
+
+.links-concact {
+    display: flex;
+}
+
+.links-concact li {
+    margin: 0 auto;
+}
+
+.links-concact li a img {
+    width: 1.7rem;
+    height: 1.7rem;
+}
