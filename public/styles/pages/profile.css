@@ -40,8 +40,3 @@ aside p {
 main {
     flex: 1;
 }
-
-#page-profile.page-footer {
-    position: absolute;
-    bottom: -132px;
-}
