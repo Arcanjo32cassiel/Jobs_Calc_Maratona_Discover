@@ -10,12 +10,38 @@ const Profile = {
         "monthly-budget": 3000,
         "hours-per-day": 5,
         "days-per-week": 6,
-        "vocation-per-year": 4,
+        "vacation-per-year": 4,
         "value-hour": 75
     },
     controllers: {
         index(req, res) {
-            res.render(views + "profile", { profile: Profile.data })
+            res.render(views + "profile", { profile: Profile.data });
+        },
+        update(req, res) {
+            //  req.body to get the dadas
+            const data = req.body;
+
+            // define how many hours is in a year :52
+            const weeksPerYear = 52;
+
+            // remove the holiday weeks of the year, to get  how many weeks you have in 1 month
+            const weeksPerMonth = (weeksPerYear - data['vacation-per-year']) / 12;
+
+            // how many hours week am i working
+            const weekTotalHours = data['hours-per-day'] * data['days-per-week'];
+            // hours worked at the month
+            const monthlyTotalHours = weekTotalHours * weeksPerMonth;
+
+            // what  will be thw value of my hour?
+            const valueHour = data["monthly-budget"] / monthlyTotalHours;
+
+            Profile.data = {
+                ...Profile.data,
+                ...req.body,
+                "value-hour": valueHour
+            }
+
+            return res.redirect('/profile')
         }
     }
 }
@@ -38,6 +64,15 @@ const Job = {
             created_at: Date.now(),
 
         },
+        {
+            id: 3,
+            name: "Ponto Certo",
+            'daily-hours': 6,
+            'total-hours': 50,
+            created_at: Date.now(),
+
+        },
+
     ],
 
     controllers: {
@@ -52,18 +87,18 @@ const Job = {
                     ...job,
                     remaining,
                     status,
-                    budget: profile['value-hour'] * job['total-hours']
+                    budget: Profile.data['value-hour'] * job['total-hours']
                 }
             })
 
-            return res.render(views + "index", { updateJobs, profile })
+            return res.render(views + "index", { updateJobs, profile: Profile.data })
         },
         create(req, res) {
             return res.render(views + "job")
         },
         save(req, res) {
 
-            const lastId = Job.data[Job.data.length - 1] ? Job.data[jobs.length - 1].id : 1;
+            const lastId = Job.data[Job.data.length - 1] ? Job.data[Job.data.length - 1].id : 1;
 
             Job.data.push({
                 id: lastId + 1,
@@ -99,12 +134,11 @@ const Job = {
 
 
 
-
-
 routes.get('/', Job.controllers.index);
 routes.get('/job', Job.controllers.create);
 routes.post('/job', Job.controllers.save);
 routes.get('/job/1', (req, res) => res.render(views + "job-edit"));
 routes.get('/profile', Profile.controllers.index);
+routes.post('/profile', Profile.controllers.update);
 
 module.exports = routes;
