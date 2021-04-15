@@ -86,7 +86,7 @@
                     <button class="button red" type="submit" form="delete-job">Excluir Job</button>
                 </footer>
             </div>
-            <form method="post" action="/job/delete/{JOBID}" id="delete-job"></form>
+            <form method="POST" action="/job/delete/<%= job.id %> " id="delete-job"></form>
         </div>
         <%- include("parts/page-footer.ejs") %>
             <!-- end modal-wrapper -->
