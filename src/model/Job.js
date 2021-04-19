@@ -12,28 +12,7 @@ let data = [{
         'daily-hours': 3,
         'total-hours': 47,
         created_at: Date.now(),
-    },
-    {
-        id: 3,
-        name: "Ponto Certo",
-        'daily-hours': 6,
-        'total-hours': 50,
-        created_at: Date.now(),
-    },
-    {
-        id: 3,
-        name: "Ponto Certo",
-        'daily-hours': 6,
-        'total-hours': 50,
-        created_at: Date.now(),
-    },
-    {
-        id: 3,
-        name: "Ponto Certo",
-        'daily-hours': 6,
-        'total-hours': 50,
-        created_at: Date.now(),
-    },
+    }
 ];
 
 module.exports = {

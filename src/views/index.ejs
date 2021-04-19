@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#41414C" />
     <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
-    <title>JobsCalc</title>
+    <title>JobsCalc </title>
 
     <link rel="stylesheet" href="/styles/main.css" />
     <link rel="stylesheet" href="/styles/partials/page-header.css" />
@@ -48,13 +48,14 @@
 
                 <div class="info">
                     <div class="total">
-                        <strong><%= jobs.length %> </strong> Projetos ao total
+                        <strong><%= statusCount.total %> </strong> Projetos ao total
                     </div>
                     <div class="in-progress">
-                        <strong>7</strong> Em andamento
+                        <strong><%= statusCount.progress %> </strong> Em andamento
                     </div>
                     <div class="finished">
-                        <strong>4</strong> Encerrados
+                        <strong><%= statusCount.done %> </strong>
+                        <%= statusCount.done  >1 ? 'Encerrados' : 'Encerrado ' %>
                     </div>
                 </div>
                 <a class="button orange" href="/job">
