@@ -13,22 +13,34 @@ module.exports = {
             total: jobs.length
         }
 
+        let jobTotalHours = 0;
+
         const updateJobs = jobs.map((job) => {
-            // job adjustments
+                // job adjustments
 
-            const remaining = JobUtils.remainingDays(job);
-            const status = remaining <= 0 ? 'done' : 'progress';
+                const remaining = JobUtils.remainingDays(job);
+                const status = remaining <= 0 ? 'done' : 'progress';
 
-            statusCount[status] += 1;
+                // Sum of the amount of status
+                statusCount[status] += 1;
 
-            return {
-                ...job,
-                remaining,
-                status,
-                budget: JobUtils.calculateBudget(job, profile["value-hour"])
-            }
-        })
+                // total hours per day of each job in progress
+                jobTotalHours = status === 'progress' ? jobTotalHours + Number(job['daily-hours']) : jobTotalHours
 
-        return res.render("index", { jobs: updateJobs, profile: profile, statusCount })
+
+                return {
+                    ...job,
+                    remaining,
+                    status,
+                    budget: JobUtils.calculateBudget(job, profile["value-hour"])
+                }
+            })
+            // Number of hours i want to work each day (profile)
+            // Any-Less
+            // Number of hours per day for each job in progress 
+
+        let freeHours = Number(profile['hours-per-day']) - Number(jobTotalHours);
+
+        return res.render("index", { jobs: updateJobs, profile: profile, statusCount: statusCount, freeHours: freeHours })
     }
 }
