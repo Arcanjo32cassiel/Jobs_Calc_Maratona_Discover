@@ -1,31 +1,49 @@
-let data = [{
-        id: 1,
-        name: "Pizzaria Marana",
-        'daily-hours': 2,
-        'total-hours': 2,
-        created_at: Date.now(),
-        budget: 4500
-    },
-    {
-        id: 2,
-        name: "Gurgueia",
-        'daily-hours': 3,
-        'total-hours': 47,
-        created_at: Date.now(),
-    }
-];
+const Dabase = require("../db/config");
 
 module.exports = {
-    get() {
-        return data
-    },
-    update(newJob) {
-        data = newJob;
-    },
-    delete(id) {
-        data = data.filter(job => Number(job.id) !== Number(id));
-    },
-    create(newJob) {
-        data.push(newJob);
-    }
-}
+  async get() {
+    const db = await Dabase();
+
+    const jobs = await db.all(` SELECT * FROM jobs `);
+    
+
+    await db.close();
+
+    return jobs.map(job => ({
+      id: job.id,
+      name: job.name,
+      "daily-hours": job.daily_hours,
+      "total-hours": job.total_hours,
+      created_at: job.created_at
+    }));
+  },
+  async update(newJob) {
+    const jobs = await db.all(` SELECT * FROM jobs `);
+    jobs = newJob;
+  },
+
+  delete(id) {
+    data = data.filter(job => Number(job.id) !== Number(id));
+  },
+
+ async create(newJob) {
+     const db = await Dabase()
+    
+     await db.run(`INSERT INTO jobs (
+         name,
+         daily_hours,
+         total_hours,
+         created_at
+     ) VALUES(
+         "${newJob.name}",
+         ${newJob["daily-hours"]},
+         ${newJob["total-hours"]},
+         ${newJob["created_at"]}
+     
+     )
+     `);
+   
+     await db.close()
+
+  }
+};
