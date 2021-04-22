@@ -17,9 +17,17 @@ module.exports = {
       created_at: job.created_at
     }));
   },
-  async update(newJob) {
-    const jobs = await db.all(` SELECT * FROM jobs `);
-    jobs = newJob;
+  async update(updateJob, jobId) {
+    const db = await Dabase();
+
+    await db.run(`UPDATE jobs  SET
+    name = "${updateJob.name}",
+    daily_hours = ${updateJob["daily-hours"]},
+    total_hours = ${updateJob["total-hours"]} 
+    WHERE id  = ${jobId}
+    `)
+
+    db.close()
   },
 
   async delete(id) {
