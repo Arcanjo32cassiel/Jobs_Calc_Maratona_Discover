@@ -10,9 +10,9 @@ const initDb = {
     name TEXT,
     avatar TEXT,
     monthly_budget INT,
-    days_per_Week INT,
+    days_per_week INT,
     hours_per_day INT,
-    vocation_per_year INT,
+    vacation_per_year INT,
     value_hour INT
     )`);
 
@@ -29,9 +29,9 @@ const initDb = {
         name,
         avatar,
         monthly_budget,
-        days_per_Week,
+        days_per_week,
         hours_per_day,
-        vocation_per_year,
+        vacation_per_year,
         value_hour
     ) VALUES (
         "Arcanjo",
